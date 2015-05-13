@@ -12,6 +12,7 @@ module NetSuite
         :phone, :addr1, :addr2, :addr3, :city, :zip, :override, :state, :internal_id
 
       field :country, NetSuite::Support::Country
+      field :addressbook_address, NetSuite::Records::Address
 
       read_only_fields :addr_text
 
