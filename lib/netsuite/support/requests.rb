@@ -27,7 +27,11 @@ module NetSuite
       end
 
       def build_response
-        Response.new(success: success?, header: response_header, body: response_body, errors: response_errors)
+        Response.new(success: success?, header: response_header,
+                     body: response_body,
+                     response_body: @response.body,
+                     errors: response_errors,
+                     request_body: request_body)
       end
 
       def success?
