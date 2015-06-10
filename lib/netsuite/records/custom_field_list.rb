@@ -62,7 +62,7 @@ module NetSuite
             if custom_field.value.respond_to?(:to_record)
               custom_field_value = custom_field.value.to_record
             elsif custom_field.value.is_a?(Array)
-              # custom_field_value = custom_field.value.map(&:to_record)
+              custom_field_value = custom_field.value.map(&:to_record)
             else
               custom_field_value = custom_field.value.to_s
             end
