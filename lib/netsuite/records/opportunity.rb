@@ -27,9 +27,10 @@ module NetSuite
         :territory, :third_party_acct, :third_party_country, :third_party_zipcode, :title, :url,
         :vat_reg_number, :visits, :web_lead, :projected_total
 
-      field :addressbook_list,  CustomerAddressbookList
-      field :custom_field_list, CustomFieldList
+      field :addressbook_list,   CustomerAddressbookList
+      field :custom_field_list,  CustomFieldList
       field :contact_roles_list, ContactAccessRolesList
+      field :item_list,          OpportunityItemList
 
       #read_only_fields :balance, :consol_balance, :deposit_balance, :consol_deposit_balance, :overdue_balance,
       #  :consol_overdue_balance, :unbilled_orders, :consol_unbilled_orders
