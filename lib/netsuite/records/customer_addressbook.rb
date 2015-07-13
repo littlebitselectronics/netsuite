@@ -9,7 +9,7 @@ module NetSuite
       # https://github.com/NetSweet/netsuite/wiki/Miscellaneous-Web-Services-Quirks#customer
 
       fields :default_shipping, :default_billing, :is_residential, :label, :attention, :addressee,
-        :phone, :addr1, :addr2, :addr3, :city, :zip, :override, :state, :internal_id
+        :phone, :addr_phone, :addr1, :addr2, :addr3, :city, :zip, :override, :state, :internal_id
 
       field :country, NetSuite::Support::Country
       field :addressbook_address, NetSuite::Records::Address
