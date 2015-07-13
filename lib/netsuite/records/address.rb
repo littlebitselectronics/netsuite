@@ -9,7 +9,7 @@ module NetSuite
       actions :get, :get_list, :add, :update, :upsert, :upsert_list, :delete, :delete_list, :search
 
       fields :attention, :addressee, :addrPhone, :addr1, :addr2,
-             :addr3, :city, :state, :zip, :country
+             :addr3, :city, :state, :zip, :country, :addr_phone
 
       field :custom_field_list, CustomFieldList
 
