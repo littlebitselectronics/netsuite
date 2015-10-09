@@ -20,6 +20,16 @@ module NetSuite
         ).call :get_select_value, :message => @options
       end
 
+      def request_body
+        type = @klass.to_s.split('::').last.sub(/[A-Z]/) { |m| m[0].downcase }
+
+        {
+          record: [
+            record_type: type
+          ]
+        }
+      end
+
       def success?
         @success ||= response_hash[:status][:@is_success] == 'true'
       end
