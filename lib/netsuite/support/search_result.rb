@@ -24,6 +24,7 @@ module NetSuite
         @total_records = response.body[:total_records].to_i
         @total_pages = response.body[:total_pages].to_i
         @current_page = response.body[:page_index].to_i
+        @page_size = response.body[:page_size].to_i
 
         if @total_records > 0
           if response.body.has_key?(:record_list)
@@ -37,7 +38,7 @@ module NetSuite
           elsif response.body.has_key? :search_row_list
             # advanced search results
             record_list = response.body[:search_row_list][:search_row]
-            record_list = [record_list] if @total_records == 1
+            record_list = [record_list] if (@current_page == @total_pages) && ((@total_records % @page_size) == 1)
 
             record_list.each do |record|
               # TODO because of customFieldList we need to either make this recursive
