@@ -26,7 +26,11 @@ module NetSuite
         @current_page = response.body[:page_index].to_i
         @page_size = response.body[:page_size].to_i
 
-        single_record_page = (@current_page == @total_pages) && ((@total_records % @page_size) == 1)
+        single_record_page = if @page_size == 0
+                               @total_records == 1
+                             else
+                               (@current_page == @total_pages) && ((@total_records % @page_size) == 1)
+                             end
 
         if single_record_page
           Rails.logger.info "Wrapping single NS search result as array"
