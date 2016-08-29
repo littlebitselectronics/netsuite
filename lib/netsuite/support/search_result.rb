@@ -20,17 +20,24 @@ module NetSuite
       def initialize(response, result_class)
         @result_class = result_class
         @response = response
-        
+
         @total_records = response.body[:total_records].to_i
         @total_pages = response.body[:total_pages].to_i
         @current_page = response.body[:page_index].to_i
         @page_size = response.body[:page_size].to_i
 
+        single_record_page = (@current_page == @total_pages) && ((@total_records % @page_size) == 1)
+
+        if single_record_page
+          Rails.logger.info "Wrapping single NS search result as array"
+          Rails.logger.info "total records: #{@total_records}, total pages: #{@total_pages}, current page: #{@current_page}, page size: #{@page_size}"
+        end
+
         if @total_records > 0
           if response.body.has_key?(:record_list)
             # basic search results
             record_list = response.body[:record_list][:record]
-            record_list = [record_list] if @total_records == 1
+            record_list = [record_list] if single_record_page
 
             record_list.each do |record|
               results << result_class.new(record)
@@ -38,7 +45,7 @@ module NetSuite
           elsif response.body.has_key? :search_row_list
             # advanced search results
             record_list = response.body[:search_row_list][:search_row]
-            record_list = [record_list] if (@current_page == @total_pages) && ((@total_records % @page_size) == 1)
+            record_list = [record_list] if single_record_page
 
             record_list.each do |record|
               # TODO because of customFieldList we need to either make this recursive
