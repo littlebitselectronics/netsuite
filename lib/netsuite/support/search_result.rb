@@ -32,11 +32,6 @@ module NetSuite
                                (@current_page == @total_pages) && ((@total_records % @page_size) == 1)
                              end
 
-        if single_record_page
-          Rails.logger.info "Wrapping single NS search result as array"
-          Rails.logger.info "total records: #{@total_records}, total pages: #{@total_pages}, current page: #{@current_page}, page size: #{@page_size}"
-        end
-
         if @total_records > 0
           if response.body.has_key?(:record_list)
             # basic search results
